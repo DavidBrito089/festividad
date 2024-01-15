@@ -1,0 +1,21 @@
+.imagen-pelicula {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 500px; /* Altura máxima de la imagen */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .imagen-pelicula img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; /* La imagen se recortará para llenar el contenedor */
+  }
+  
+  body{
+    padding: 0;
+    margin: 0;
+  }
+  

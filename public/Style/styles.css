@@ -1,0 +1,212 @@
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  background-color: #000000;
+  color: #F9F6EF;
+}
+main {
+  margin: 0 auto;
+  padding-inline: 10em;
+  text-align: justify;
+}
+h1, h2, h3 {
+  text-wrap: balance;
+  line-height: .8;
+}
+p {
+  text-wrap: pretty;
+  line-height: 1.5;
+}
+
+.center{
+  text-align: -webkit-center;
+  padding: 20px;
+}
+
+@supports(animation-timeline: view()){
+  @keyframes fade-out {
+    to {
+      background-size: 150%;
+      opacity: 0;
+    }
+  }
+  @keyframes zoom-out {
+    to {
+      font-size: 2rem;
+      padding-left: .1em;
+    }
+  }
+  @keyframes appear {
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes max-out {
+    to {
+      max-width: 100%;
+    }
+  }
+  .hero {
+    animation: fade-out linear both;
+    animation-timeline: view();
+    animation-range: exit -100px;
+  }
+  nav {
+    animation: max-out linear both;
+    animation-timeline: view();
+    animation-range-start: 80vh;
+    animation-range-end: 100vh;
+  }
+  nav:after {
+    animation: appear linear both;
+    animation-timeline: view();
+    animation-range-start: 60vh;
+    animation-range-end: 100vh;
+  }
+  .logo {
+    animation: zoom-out linear both;
+    animation-timeline: view();
+    animation-range-start: 10vh;
+    animation-range-end: 100vh;
+  }
+}
+@supports(not(animation-timeline: view())) {
+  .notice:after {
+    content: ' animation-timeline of scroll and view are currently not supported in your browser.';
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..700&display=swap');
+
+nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  min-height: 3rem;
+  background-color: #ffffff;
+  backdrop-filter: blur(.2em);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  font-weight: bold;
+  ul {
+    padding-right: 1em;
+    margin: 0;
+    display: inline-flex;
+    gap: 1rem;
+    li {
+      list-style: none;
+      display: inline-block;
+      cursor: pointer;
+      transition: .5s linear;
+      &:hover {
+        text-decoration: underline #5EB0E5;
+      }
+    }
+  }
+}
+.hero {
+  min-height: 60vh;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 75%;
+  display: grid;
+  align-content: center;
+  container-type: inline-size;
+  border-radius: 10px;
+  h1 {
+    font-size: clamp(1rem, 7cqi, 10rem);
+    font-weight: 50;
+    max-width: 50%;
+    color: hsl(0, 0%, 100%);
+  }
+  .btn {
+    display: inline;
+    position: relative;
+    padding: .5em 1em;
+    cursor: pointer;
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(45deg,
+            hsl(0, 100%, 70%),
+            hsl(30, 100%, 70%),
+            hsl(60, 100%, 70%),
+            hsl(90, 100%, 70%),
+            hsl(120, 100%, 70%),
+            hsl(150, 100%, 70%),
+            hsl(180, 100%, 70%),
+            hsl(210, 100%, 70%),
+            hsl(240, 100%, 70%),
+            hsl(270, 100%, 70%),
+            hsl(300, 100%, 70%),
+            hsl(330, 100%, 70%),
+            hsl(360, 100%, 70%)
+          );
+      background: linear-gradient(in hsl longer hue 45deg, #f66 0 0);
+      z-index: -1;
+      clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 8% 50%, 0% 0%);
+    }
+    &:after {
+      background: #000000;
+      inset: 3px;
+    }
+  }
+}
+nav:after {
+  font-weight: bold;
+  content: '';
+  position: absolute;
+  opacity: 0;
+  height: .05em;
+  width: 100%;
+  bottom: 0;
+  background:
+    linear-gradient(45deg,
+        hsl(0, 100%, 70%),
+        hsl(30, 100%, 70%),
+        hsl(60, 100%, 70%),
+        hsl(90, 100%, 70%),
+        hsl(120, 100%, 70%),
+        hsl(150, 100%, 70%),
+        hsl(180, 100%, 70%),
+        hsl(210, 100%, 70%),
+        hsl(240, 100%, 70%),
+        hsl(270, 100%, 70%),
+        hsl(300, 100%, 70%),
+        hsl(330, 100%, 70%),
+        hsl(360, 100%, 70%)
+      );
+  background: linear-gradient(in hsl longer hue 90deg, #f66 0 0);
+}
+.logo {
+  padding-inline: 1em;
+  font-weight: 100;
+  font-size: 5cqi;
+  background: linear-gradient(in hsl longer hue 10deg, #f66 0 0);
+  background-clip: text;
+  color: #0000;
+  font-weight: bold;  
+}
+
+.imagen-header {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-height: 60vh;
+  margin: 0;
+  padding: 0;
+}
+
+.imagen-header img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
