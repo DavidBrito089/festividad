@@ -1,32 +1,39 @@
-/*const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
 
-app.get('/', (req, res) => {
-  res.send('Hols mundo!')
-})
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
 
-app.get('/about', (req, res) => {
-  res.app.use(express.static('public'));
-})
+const messages = [];
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})*/
+app.use(express.static('public'));
 
-var express = require("express");
-var app = express();
-const port = 3000
+let userCount = 0;
 
-app.use(express.static("public"));
-app.use("/static", express.static("public"));
+io.on('connection', (socket) => {
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname +"/public/index.html");
-})
+    userCount++;
+    io.emit('update user count', userCount);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+    socket.on('join', (data) => {
+        io.emit('user joined', { username: data.username, userColor: data.userColor });
+    });
 
-console.log("Servidor express escuchando");
+    socket.on('chat message', (data) => {
+        io.emit('chat message', { username: data.username, message: data.message, userColor: data.userColor });
+    });
+
+    socket.on('disconnect', () => {
+        userCount--;
+
+        io.emit('update user count', userCount);
+        io.emit('user left', { username: 'Usuario desconectado', userColor: 'red' });
+    });
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+});
